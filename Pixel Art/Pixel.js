@@ -7,9 +7,7 @@
 
 //Initialization function
 function setup() {
-  //Print a message to the console - to view using Chrome:
-  //View > Developer > Developer Tools > Console
-  console.log("Initialization: OK")
+
   createCanvas(200,200);
     background(213, 218, 240);
   drawgreen();
