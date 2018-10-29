@@ -1,6 +1,6 @@
 //Initialization function
 function setup() {
-
+framerate(30);
   createCanvas(594,841);
   draw();
   draw1();
@@ -18,6 +18,7 @@ function draw() {
 }
 function draw1(){
  // draw() loops forever, until stopped
+ var yPos = 0;
   yPos = yPos - 1;
   if (yPos < 0) {
     yPos = height;
