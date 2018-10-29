@@ -3,7 +3,7 @@ function setup() {
 framerate(30);
   createCanvas(594,841);
   draw();
-  draw1();
+//draw1();
 }
 
 //Rendering function
@@ -19,9 +19,10 @@ function draw() {
 function draw1(){
  // draw() loops forever, until stopped
  var yPos = 0;
-  yPos = yPos - 1;
+  yPos = 1;
   if (yPos < 0) {
-    yPos = height;
+    yPos = 300;
   }
-  line(0, yPos, width, yPos);
+  line(10, yPos, 500, 400);
+  noLoop();
 }

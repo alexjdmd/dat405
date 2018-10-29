@@ -7,10 +7,12 @@
 
 //Initialization function
 function setup() {
-
+//create the canvas with the size 200px x 200px
   createCanvas(200,200);
+//Set the background to a specific colour
     background(213, 218, 240);
-  drawgreen();
+//Rendering Functions
+drawgreen();
 drawblue();
 drawwhite();
 drawblack();
@@ -20,7 +22,7 @@ drawred();
 //Rendering functions
 
 function drawgreen() {
-  //A function that draws all of the green "pixels" in the image
+  //A function that draws all of the green blocks in the image
 fill(36,177,78);
 noStroke();
 rect(0 ,60 ,10 ,10);
@@ -211,6 +213,7 @@ rect(170 ,110 ,10 ,10);
 rect(170 ,120 ,10 ,10);
 }
 function drawblue(){
+//A function to draw all of the blue blocks in the image.
   fill(63,71,204);
   noStroke();
   rect(0 ,130 ,10 ,10);
