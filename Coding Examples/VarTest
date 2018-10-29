@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="demo">Display the result here.</p>
+
+<script>
+
+// Create the variable here
+
+var x = "You have won a Car";
+var y = "You have won a holiday";
+var z = “You have won a 12 Week Programming Course”;
+
+document.getElementById("demo").innerHTML = x;
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="demo">Display the result here.</p>
+
+<script>
+
+// Create the variable here
+var r1 = "You have won a Car";
+var r2 = "You have won a holiday";
+var r3 = "You have won a 12 week holiday";
+var PrintRes = " a";
+var g = 1;
+
+if (g = 1) {
+  PrintRes = r1;
+}
+if (g = 2) {
+    PrintRes = r2;
+}
+
+if (g = 3) {
+    PrintRes = r3;
+}
+if (g < 0  || g > 4){
+    PrintRes = "Please input a valid Option.";
+  }
+document.getElementById("demo").innerHTML = PrintRes;
+
+</script>
+
+</body>
+</html>
