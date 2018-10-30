@@ -9,18 +9,27 @@
 function setup() {
 //create the canvas with the size 200px x 200px
   createCanvas(200,200);
+
 //Set the background to a specific colour
-    background(213, 218, 240);
+  //  background(213, 218, 240);
+    for (var g = 0; g<= 30; g++){}
+    background(random(255),random(255),random(255));
+let dimensions = 50
 //Rendering Functions
-drawgreen();
-drawblue();
-drawwhite();
-drawblack();
-drawred();
 }
 
 //Rendering functions
-
+function draw(){
+  for(var g = 0; g < 10; g++){
+    fill(random(255),random(255),random(255));
+    rect(0 , 0, 200,200)
+  }
+  drawred();
+  drawgreen();
+  drawblue();
+  drawblack();
+  drawwhite();
+}
 function drawgreen() {
   //A function that draws all of the green blocks in the image
 fill(36,177,78);
