@@ -8,7 +8,6 @@ function setup(){
 function draw(){
   //setting the size of the squares relative to the size of the window`
 var rectX = windowWidth/500
-var rectY = windowHeight/5
 var x1 = map(mouseX, 0 , windowWidth, 0,windowWidth)
 //storing the current x coordinate of the mouse in a variable
 var x2 = map(mouseY, 0 , windowHeight,0,windowHeight)
@@ -18,10 +17,6 @@ noStroke();
 rectMode(RADIUS);
 //changing the mode of the rectangle so that it is in the centre of the cursor rather than the corner.
 rect(x1, x2,rectX,rectX);
-}
-function pos_to_neg(mouseX)
-{
-return -Math.abs(mouseX);
 }
 // A function that resizes the canvas depending on the size of the window.
 function windowResized(){
