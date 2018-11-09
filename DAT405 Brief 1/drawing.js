@@ -2,7 +2,7 @@
 function setup(){
   createCanvas(windowWidth,windowHeight);
   background(255,160,155);
-  frameRate(100);
+  frameRate(30);
 
 }
 
@@ -14,9 +14,14 @@ CustomShape(x,y,size);
 }
 
 function CustomShape(x,y,size){
-  fill(255);
   noStroke();
+  fill(0);
+  rectMode(CENTER);
+  rect(x,y,size,size);
+  fill(255);
   ellipse(x,y,size,size);
+  fill(0)
+  rect(x,y,size/2,size/2);
 }
 
 // A function that resizes the canvas depending on the size of the window.
