@@ -27,6 +27,9 @@
   if (keyCode == 68){
     shapeSelected = 3
   }
+  if (keyCode == 32){
+    shapeSelected = 4
+  }
   }
 
   function CustomShape(x,y,size,shapeSelected){
@@ -35,6 +38,7 @@
     var randB = random(255);
     switch(shapeSelected){
       case 1:
+          translate(random(windowWidth),random(windowHeight));
           fill(0);
           rectMode(CENTER);
           rect(x,y,size,size);
@@ -44,6 +48,7 @@
           rect(x,y,size/2,size/2);
           break;
      case 2:
+          translate(random(windowWidth),random(windowHeight));
           for(var r = 0;r<10;r++){
 
             if (abs(r) % 2 == 0){
@@ -52,17 +57,22 @@
               fill(randR,randG,randB);
           }
           polygon(x,y,size - r*10,9)
-          translate(random(windowWidth),random(windowHeight));
           }
           break;
      case 3:
-          for (var r = 0;r<360;r++){
-            translate(random(500),random(500));
+          translate(random(windowWidth),random(windowHeight));
+          for (var r = 0;r<22.55;r++){
             rectMode(RADIUS);
             fill(randR,randG, randB);
             rotate(360);
             rect(x,y,10,size);
           }
+     break;
+     case 4:
+     fill(0);
+     rectMode(RADIUS);
+     rect(windowWidth/2-50,windowHeight/2,40,100);
+     rect(windowWidth/2+50,windowHeight/2,40,100);
      break;
     }
 
