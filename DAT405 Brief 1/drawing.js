@@ -6,24 +6,15 @@
     createCanvas(windowWidth,windowHeight);
     background(255,160,40);
     frameRate(30);
-    x = 500
-    y= 500
+    x = 0
+    y= 0
     size = 150
   }
 
   function draw(){
     //var y = map(mouseY, 0 , windowHeight,0,windowHeight)
     //var x = map(mouseX, 0 , windowWidth, 0,windowWidth)
-
     CustomShape(x,y,size,shapeSelected);
-    if (y>windowHeight){
-      y=0
-    }
-
-    if (x>windowWidth){
-      x=0
-    }
-
   }
 
   function keyPressed(){
@@ -39,25 +30,54 @@
   }
 
   function CustomShape(x,y,size,shapeSelected){
+    var randR = random(255);
+    var randG = random(255);
+    var randB = random(255);
     switch(shapeSelected){
-      case 1:     fill(0);
+      case 1:
+          fill(0);
           rectMode(CENTER);
           rect(x,y,size,size);
           fill(255);
           ellipse(x,y,size,size);
           fill(0)
           rect(x,y,size/2,size/2);
-     case 2: fill(255);
-          for (var rX = 0;rX<9;rX+140){
-rotateZ(rX)
-          triangle(y-50, y-50, x, 200, y+50, y-50);
+          break;
+     case 2:
+          for(var r = 0;r<10;r++){
 
-}
-
+            if (abs(r) % 2 == 0){
+              fill(0);
+          } else {
+              fill(randR,randG,randB);
+          }
+          polygon(x,y,size - r*10,9)
+          translate(random(windowWidth),random(windowHeight));
+          }
+          break;
      case 3:
+          for (var r = 0;r<360;r++){
+            translate(random(500),random(500));
+            rectMode(RADIUS);
+            fill(randR,randG, randB);
+            rotate(360);
+            rect(x,y,10,size);
+          }
+     break;
     }
 
   }
+
+  function polygon(x, y, radius, npoints) {
+  var angle = TWO_PI / npoints;
+  beginShape();
+  for (var a = 0; a < TWO_PI; a += angle) {
+    var sx = x + cos(a) * radius;
+    var sy = y + sin(a) * radius;
+    vertex(sx, sy);
+  }
+  endShape(CLOSE);
+}
 
   // A function that resizes the canvas depending on the size of the window.
   function windowResized(){
