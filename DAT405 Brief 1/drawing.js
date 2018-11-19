@@ -6,28 +6,17 @@ var cSizeX;
 var cSizeY;
 var toggleLoop = false;
 var started = false;
+
 function setup(){
   cSizeX = 567;
   cSizeY = 841;
-  createCanvas(cSizeX,cSizeY);
+  var can = createCanvas(cSizeX,cSizeY);
+  can.parent('sketch-holder');
   background(255,160,40);
   frameRate(10);
   x = 0
   y= 0
   size = 150
-
-  fill(0);
-  textFont('Calibri');
-  textAlign(CENTER);
-  textSize(cSizeX/20);
-  text('Press Space to Start / Stop',cSizeX / 2, 100);
-  textSize(cSizeX/25)
-  text('Press the following keys for the corresponding shapes', cSizeX/2, 200);
-  text('Press R to Reset', cSizeX/2, 150);
-  text('A',cSizeX /8, 320);
-  text('S',cSizeX/2, 320);
-  text('D',cSizeX - 80 , 320);
-
 }
 
 function draw(){
@@ -36,7 +25,7 @@ if (keyIsPressed == true && toggleLoop == false){
 }
 
   if (started == true){
-    toggleLoop = true
+    toggleLoop = true;
   CustomShape(x,y,size,shapeSelected);
 }
 }
@@ -52,7 +41,11 @@ function keyPressed(){
     shapeSelected = 3
   }
   if (keyCode == 32){
-    started = true;
+    if (started == false){
+      started = true;
+    } else{
+      started = false;
+    }
   }
   if (keyCode == 82){
     setup();
@@ -94,13 +87,6 @@ function CustomShape(x,y,size,shapeSelected){
       rotate(360);
       rect(x,y,10,size);
     }
-    break;
-    case 4:
-    // fill(0);
-    // rectMode(RADIUS);
-    // rect(cSizeX/2-50,cSizeY/2,40,100);
-    // rect(cSizeX/2+50,cSizeY/2,40,100);
-
     break;
   }
 
