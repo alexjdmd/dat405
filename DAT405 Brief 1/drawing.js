@@ -1,13 +1,15 @@
+var x;
+var y;
+var size;
+var shapeSelected = 0;
+var cSizeX;
+var cSizeY;
+var toggleLoop = false;
+var started = false;
+
+
 var sketch = function(p){
 
-  var x;
-  var y;
-  var size;
-  var shapeSelected = 0;
-  var cSizeX;
-  var cSizeY;
-  var toggleLoop = false;
-  var started = false;
 
 p.setup = function(){
   cSizeX = 567;
@@ -112,6 +114,16 @@ p.windowResized = function(){
 }
 
 var drawing = new p5(sketch)
+
+var select = function(s){
+  s.setup = function(){
+    s.createCanvas(500,500)
+    s.background(40)
+    s.fill(0)
+    s.rect(10,10,300,20)
+  }
+}
+var selectt = new p5(select)
 //CODE TO HIGHLIGHT SHAPE
 // if (shapeSelected == true){
 //   strokeWeight(4);
