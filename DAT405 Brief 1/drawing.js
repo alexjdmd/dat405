@@ -1,114 +1,117 @@
-var x;
-var y;
-var size;
-var shapeSelected = 0;
-var cSizeX;
-var cSizeY;
-var toggleLoop = false;
-var started = false;
+var sketch = function(p){
 
-function setup(){
+  var x;
+  var y;
+  var size;
+  var shapeSelected = 0;
+  var cSizeX;
+  var cSizeY;
+  var toggleLoop = false;
+  var started = false;
+
+p.setup = function(){
   cSizeX = 567;
   cSizeY = 841;
-  var can = createCanvas(cSizeX,cSizeY);
+  var can = p.createCanvas(cSizeX,cSizeY);
   can.parent('sketch-holder');
-  background(255,160,40);
-  frameRate(10);
+  p.background(255,160,40);
+  p.frameRate(10);
   x = 0
   y= 0
   size = 150
 }
 
-function draw(){
-if (keyIsPressed == true && toggleLoop == false){
-    background(255,160,40);
+p.draw = function(){
+if (p.keyIsPressed == true && toggleLoop == false){
+    p.background(255,160,40);
 }
 
   if (started == true){
     toggleLoop = true;
-  CustomShape(x,y,size,shapeSelected);
+  p.CustomShape(x,y,size,shapeSelected);
 }
 }
 
-function keyPressed(){
-  if (keyCode == 65){
+p.keyPressed = function(){
+  if (p.keyCode == 65){
     shapeSelected = 1
   }
-  if (keyCode == 83){
+  if (p.keyCode == 83){
     shapeSelected = 2
   }
-  if (keyCode == 68){
+  if (p.keyCode == 68){
     shapeSelected = 3
   }
-  if (keyCode == 32){
+  if (p.keyCode == 32){
     if (started == false){
       started = true;
     } else{
       started = false;
     }
   }
-  if (keyCode == 82){
-    setup();
+  if (p.keyCode == 82){
+    p.setup();
   }
 }
 
-function CustomShape(x,y,size,shapeSelected){
-  var randR = random(255);
-  var randG = random(255);
-  var randB = random(255);
+p.CustomShape = function(x,y,size,shapeSelected){
+  var randR = p.random(255);
+  var randG = p.random(255);
+  var randB = p.random(255);
   switch(shapeSelected){
     case 1:
-    translate(random(cSizeX),random(cSizeY));
-    fill(0);
-    rectMode(CENTER);
-    rect(x,y,size,size);
-    fill(255);
-    ellipse(x,y,size,size);
-    fill(0)
-    rect(x,y,size/2,size/2);
+    p.translate(p.random(cSizeX),p.random(cSizeY));
+    p.fill(0);
+    p.rectMode(p.CENTER);
+    p.rect(x,y,size,size);
+    p.fill(255);
+    p.ellipse(x,y,size,size);
+    p.fill(0)
+    p.rect(x,y,size/2,size/2);
     break;
     case 2:
-    translate(random(cSizeX),random(cSizeY));
+    p.translate(p.random(cSizeX),p.random(cSizeY));
     for(var r = 0;r<10;r++){
 
-      if (abs(r) % 2 == 0){
-        fill(0);
+      if (p.abs(r) % 2 == 0){
+        p.fill(0);
       } else {
-        fill(randR,randG,randB);
+        p.fill(randR,randG,randB);
       }
-      polygon(x,y,size - r*10,9)
+      p.polygon(x,y,size - r*10,9)
     }
     break;
     case 3:
-    translate(random(cSizeX),random(cSizeY));
+    p.translate(p.random(cSizeX),p.random(cSizeY));
     for (var r = 0;r<22.55;r++){
-      rectMode(RADIUS);
-      fill(randR,randG, randB);
-      rotate(360);
-      rect(x,y,10,size);
+      p.rectMode(p.RADIUS);
+      p.fill(randR,randG, randB);
+      p.rotate(360);
+      p.rect(x,y,10,size);
     }
     break;
   }
 
 }
 
-function polygon(x, y, radius, npoints) {
-  var angle = TWO_PI / npoints;
-  beginShape();
-  for (var a = 0; a < TWO_PI; a += angle) {
-    var sx = x + cos(a) * radius;
-    var sy = y + sin(a) * radius;
-    vertex(sx, sy);
+p.polygon = function(x, y, radius, npoints) {
+  var angle = p.TWO_PI / npoints;
+  p.beginShape();
+  for (var a = 0; a < p.TWO_PI; a += angle) {
+    var sx = x + p.cos(a) * radius;
+    var sy = y + p.sin(a) * radius;
+    p.vertex(sx, sy);
   }
-  endShape(CLOSE);
+  p.endShape(p.CLOSE);
 }
 
 // A function that resizes the canvas depending on the size of the window.
-function windowResized(){
-  setup();
+p.windowResized = function(){
+  p.setup();
+}
 }
 
-
+var drawing = new p5(sketch)
 //CODE TO HIGHLIGHT SHAPE
 // if (shapeSelected == true){
 //   strokeWeight(4);
