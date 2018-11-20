@@ -11,7 +11,7 @@ var stroked = false
 var selectedArray= [false, false, false];
 
 //INSTANCED VARIABLE FOR THE MAIN CANVAS
-var sketch = function(p){
+var mainCanvas = function(p){
 
   //SETUP FUNCTION
   p.setup = function(){
@@ -146,7 +146,7 @@ var sketch = function(p){
 
 //A second canvas created using instancing which will display instructions on how to use the program
 //and which shape has been selected
-var select = function(s){
+var selectionCanvas = function(s){
   var polysize = 90
   var pauseText = "Not Started / Paused"
   var shapeSize = 150
@@ -271,5 +271,5 @@ var select = function(s){
   }
 }
 //creates 2 variables that create a new p5.js instance using the functions 'select', and 'sketch'
-var selecting = new p5(select)
-var drawing = new p5(sketch)
+var selecting = new p5(selectionCanvas)
+var drawing = new p5(mainCanvas)
