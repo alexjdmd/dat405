@@ -4,8 +4,8 @@ function setup(){
   frameRate(30);
 }
 function draw(){
-  var x = 10
-  var height = 10
+  var x = 100
+  var height = 100
   for (var i = 0; i<12;i++){
     for(var g = 0; g < 10; g++){
       //calling the two differnt functions, one for the border, the other for the funky squares
