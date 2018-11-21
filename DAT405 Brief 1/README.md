@@ -2,6 +2,8 @@ ALEX JONES DAT405 ASSIGNMENT 1
 
 GITHUB LINK: https://github.com/alexjdmd/dat405/tree/master/DAT405%20Brief%201
 
+SCREENSHOTS IN THE "Assets" FOLDER
+
 Using instancing, I have created 2 canvases that display different things.
 The first canvas displays the shapes being placed in random positions on the canvas, with random RGB colours.
 My project checks to see if a certain key has been pressed, using the keyPressed() function and if statements. The program will not run unless the spacebar has been pressed.
