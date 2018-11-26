@@ -1,6 +1,9 @@
 ALEX JONES DAT405 ASSIGNMENT 1
 
-GITHUB LINK: https://github.com/alexjdmd/dat405/tree/master/DAT405%20Brief%201
+GITHUB LINK (with all of the development commits): https://github.com/alexjdmd/dat405/tree/master/DAT405%20Brief%201
+
+GITHUB PAGES LINK: https://alexjdmd.github.io/AJDAT405/
+
 
 Using instancing, I have created 2 canvases that display different things.
 The first canvas displays the shapes being placed in random positions on the canvas, with random RGB colours.
