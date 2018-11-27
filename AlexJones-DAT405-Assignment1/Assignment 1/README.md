@@ -1,6 +1,8 @@
 ALEX JONES DAT405 ASSIGNMENT 1
 
-GITHUB LINK (with all of the development commits): https://github.com/alexjdmd/dat405/tree/master/DAT405%20Brief%201
+GITHUB LINK TO DEVELOPMENT REPOSITORY: https://github.com/alexjdmd/dat405/tree/master/DAT405%20Brief%201
+
+LINK TO COMMITS: https://github.com/alexjdmd/dat405/commits/master
 
 GITHUB PAGES LINK: https://alexjdmd.github.io/AJDAT405/
 
