@@ -15,9 +15,8 @@ background(155, 155 , 155);
   rand3=Math.floor(Math.random() * 256)
 
   draw2();
-  draw3();
   draw1();
-
+}
 function draw1(){
     fill(0, 0, 255);
   ellipse(100, 100, 200, 200);
@@ -44,9 +43,4 @@ function draw2(){
   fill(255,140,0);
   stroke(50);
   rect(900,100,10,900);
-
-}
-function draw3(){
-  angleZ();
-}
 }
