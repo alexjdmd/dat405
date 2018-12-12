@@ -163,6 +163,9 @@ function jsonData(){
   }
 
   function pricesPressed(){
+  if (listState == 2 && rBtPress == true){
+    listState = 5
+  }
     switch(listState){
       case 1:
       var oreCount = 0
@@ -170,9 +173,50 @@ function jsonData(){
         drawPrices(10,oreCount,itemPrice[n])
         oreCount++
       }
-
-    break;
-
+      break;
+      case 3:
+      for (var i = 0; i < 11; i++){
+        if (i<8){
+        drawPrices(0,i,itemPrice[i])
+      } else {
+        drawPrices(400,i-8,itemPrice[i])
+    }
+    }
+      break;
+      case 4:
+      for (var i = 0; i < 11; i++){
+        if (i<8){
+        drawPrices(400,i,itemPrice[i])
+      } else {
+        drawPrices(800,i-8,itemPrice[i])
+    }
+    }
+    var oreCount = 0
+    for (var n = 13; n< 21; n++){
+      drawPrices(10,oreCount,itemPrice[n])
+      oreCount++
+    }
+      break;
+      case 5:
+      oreCount = 0
+      for (var n = 13; n< 21; n++){
+        if (oreCount < 5) {
+        drawPrices(400,oreCount+3,itemPrice[n])
+        oreCount++
+      } else {
+        drawPrices(800,oreCount-5,itemPrice[n])
+        oreCount++
+      }
+    }
+      for (var i = 0; i < 11; i++){
+        if (i<8){
+        drawPrices(0,i,itemPrice[i])
+      } else {
+        drawPrices(400,i-8,itemPrice[i])
+    }
+    }
+      break;
   }
+  console.log(listState)
 }
 }
