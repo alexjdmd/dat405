@@ -19,6 +19,7 @@ function setup(){
 
 function jsonData(){
   var listButtons;
+  var resetButton;
   var rBtPress = false
   var oreBtPress = false
   var listState = 0
@@ -27,7 +28,7 @@ function jsonData(){
   drawButtons();
 
   function drawButtons(){
-    var resetButton = createButton('Reset')
+    resetButton = createButton('Reset')
     resetButton.position(10,670)
     resetButton.size(100,40)
     resetButton.mousePressed(resetPressed)
@@ -48,7 +49,7 @@ function jsonData(){
     runeButton.mousePressed(runesPressed);
 
     var oresButton = createButton('Ores')
-    oresButton.position(10,595)
+    oresButton.position(10,600)
     oresButton.size(100,30)
     oresButton.mousePressed(oresPressed)
 
@@ -56,6 +57,11 @@ function jsonData(){
     pricesButton.position(110,630)
     pricesButton.size(100,30)
     pricesButton.mousePressed(pricesPressed)
+
+    var quantityButton = createButton('Quantity')
+    quantityButton.position(110,600)
+    quantityButton.size(100,30)
+    quantityButton.mousePressed(quantityPressed)
 
     listButtons.hide()
   }
@@ -102,7 +108,6 @@ function jsonData(){
 
   function drawQuantity(x,y,quantity) {
     text(quantity, x+300, 35+(y*50))
-    y++
   }
 
   function resetPressed(){
@@ -217,6 +222,62 @@ function jsonData(){
     }
       break;
   }
-  console.log(listState)
 }
+
+  function quantityPressed(){
+    if (listState == 2 && rBtPress == true){
+      listState = 5
+    }
+      switch(listState){
+        case 1:
+        var oreCount = 0
+        for (var n = 13; n< 21; n++){
+          drawQuantity(10,oreCount,itemQuantity[n])
+          oreCount++
+        }
+        break;
+        case 3:
+        for (var i = 0; i < 11; i++){
+          if (i<8){
+          drawQuantity(0,i,itemQuantity[i])
+        } else {
+          drawQuantity(400,i-8,itemQuantity[i])
+      }
+      }
+        break;
+        case 4:
+        for (var i = 0; i < 11; i++){
+          if (i<8){
+          drawQuantity(400,i,itemQuantity[i])
+        } else {
+          drawQuantity(800,i-8,itemQuantity[i])
+      }
+      }
+      var oreCount = 0
+      for (var n = 13; n< 21; n++){
+        drawQuantity(10,oreCount,itemQuantity[n])
+        oreCount++
+      }
+        break;
+        case 5:
+        oreCount = 0
+        for (var n = 13; n< 21; n++){
+          if (oreCount < 5) {
+          drawQuantity(400,oreCount+3,itemQuantity[n])
+          oreCount++
+        } else {
+          drawQuantity(800,oreCount-5,itemQuantity[n])
+          oreCount++
+        }
+      }
+        for (var i = 0; i < 11; i++){
+          if (i<8){
+          drawQuantity(0,i,itemQuantity[i])
+        } else {
+          drawQuantity(400,i-8,itemQuantity[i])
+      }
+      }
+        break;
+    }
+  }
 }
