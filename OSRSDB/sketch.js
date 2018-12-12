@@ -6,7 +6,7 @@ var itemID = [];
 var y = 0
 
 // var url = 'https://spreadsheets.google.com/feeds/list/1FyM9xqawlVi5joBX230meyK6yyfsK9SC02Ocl579VLw/od6/public/values?alt=json';
-//var apiKey = "AIzaSyD00xEtXslPQ6LfOAkFCNE-8YTpRKa17h0";
+
 //var url = 'https://sheets.googleapis.com/v4/spreadsheets/1FyM9xqawlVi5joBX230meyK6yyfsK9SC02Ocl579VLw/values/Prices?key=' + apiKey;
 var osbapi = "https://storage.googleapis.com/osbuddy-exchange/summary.json"
 
@@ -51,6 +51,11 @@ function jsonData(){
     oresButton.size(100,30)
     oresButton.mousePressed(oresPressed)
 
+    var pricesButton = createButton('Prices')
+    pricesButton.position(110,630)
+    pricesButton.size(100,30)
+    pricesButton.mousePressed(pricesPressed)
+
     listButtons.hide()
   }
 
@@ -80,13 +85,22 @@ function jsonData(){
     }
 
   }
-  function drawItems(x, y, id, name,price,quantity){
+
+  function drawItems(x, y, id, name){
     icon = createImg("http://services.runescape.com/m=itemdb_oldschool/1544450463596_obj_sprite.gif?id=" + id);
     icon.position(x,10+(y*50))
     fill(244,24,100);
     textSize(20)
     text(name,x+50,35+(y*50))
+    y++
+  }
+
+  function drawPrices(x,y,price){
     text(price + " gp",x+200,35+(y*50))
+    y++
+  }
+
+  function drawQuantity(x,y,quantity) {
     text(quantity, x+300, 35+(y*50))
     y++
   }
@@ -103,7 +117,7 @@ function jsonData(){
       oreBtPress = true
       var oreCount = 0
       for (var n = 13; n< 21; n++){
-        drawItems(10,oreCount,itemID[n],itemName[n],itemPrice[n],itemQuantity[n])
+        drawItems(10,oreCount,itemID[n],itemName[n])
         oreCount++
       }
     } else if (rBtPress == true && oreBtPress == false) {
@@ -111,10 +125,10 @@ function jsonData(){
       oreCount = 0
       for (var n = 13; n< 21; n++){
         if (oreCount < 5) {
-        drawItems(400,oreCount+3,itemID[n],itemName[n],itemPrice[n],itemQuantity[n])
+        drawItems(400,oreCount+3,itemID[n],itemName[n])
         oreCount++
       } else {
-        drawItems(800,oreCount-5,itemID[n],itemName[n],itemPrice[n],itemQuantity[n])
+        drawItems(800,oreCount-5,itemID[n],itemName[n])
         oreCount++
       }
     }
@@ -126,18 +140,40 @@ function jsonData(){
       rBtPress = true
       for (var i = 0; i < 11; i++){
         if (i<8){
-        drawItems(0,i,itemID[i],itemName[i],itemPrice[i],itemQuantity[i])
+        drawItems(0,i,itemID[i],itemName[i])
       } else {
-        drawItems(400,i-8,itemID[i],itemName[i],itemPrice[i],itemQuantity[i])
+        drawItems(400,i-8,itemID[i],itemName[i])
     }
     }
   } else if (oreBtPress == true && rBtPress == false) {
       rBtPress = true
       for (var i = 0; i < 11; i++){
         if (i<8){
-        drawItems(400,i,itemID[i],itemName[i],itemPrice[i],itemQuantity[i])
+        drawItems(400,i,itemID[i],itemName[i])
       } else {
-        drawItems(800,i-8,itemID[i],itemName[i],itemPrice[i],itemQuantity[i])
+        drawItems(800,i-8,itemID[i],itemName[i])
+    }
+    }
+  }
+  }
+
+  function pricesPressed(){
+    if (rBtPress == false && oreBtPress == false){
+      rBtPress = true
+      for (var i = 0; i < 11; i++){
+        if (i<8){
+        drawPrices(0,i,itemPrice[i])
+      } else {
+        drawPrices(400,i-8,itemPrice[i])
+    }
+    }
+  } else if (oreBtPress == true && rBtPress == false) {
+      rBtPress = true
+      for (var i = 13; i < 21; i++){
+        if (i<8){
+        drawPrices(400,i,itemPrice[i])
+      } else {
+        drawPrices(800,i-8,itemPrice[i])
     }
     }
   }
