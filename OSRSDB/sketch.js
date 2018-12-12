@@ -21,6 +21,7 @@ function jsonData(){
   var listButtons;
   var rBtPress = false
   var oreBtPress = false
+  var listState = 0
 
 
   drawButtons();
@@ -97,7 +98,6 @@ function jsonData(){
 
   function drawPrices(x,y,price){
     text(price + " gp",x+200,35+(y*50))
-    y++
   }
 
   function drawQuantity(x,y,quantity) {
@@ -110,6 +110,7 @@ function jsonData(){
     y = 0;
     removeElements();
     drawButtons();
+    listState = 0
   }
 
   function oresPressed(){
@@ -120,6 +121,7 @@ function jsonData(){
         drawItems(10,oreCount,itemID[n],itemName[n])
         oreCount++
       }
+    listState = 1
     } else if (rBtPress == true && oreBtPress == false) {
       oreBtPress = true
       oreCount = 0
@@ -132,6 +134,7 @@ function jsonData(){
         oreCount++
       }
     }
+    listState = 2
     }
   }
 
@@ -145,6 +148,7 @@ function jsonData(){
         drawItems(400,i-8,itemID[i],itemName[i])
     }
     }
+    listState = 3
   } else if (oreBtPress == true && rBtPress == false) {
       rBtPress = true
       for (var i = 0; i < 11; i++){
@@ -154,28 +158,21 @@ function jsonData(){
         drawItems(800,i-8,itemID[i],itemName[i])
     }
     }
+  listState = 4
   }
   }
 
   function pricesPressed(){
-    if (rBtPress == false && oreBtPress == false){
-      rBtPress = true
-      for (var i = 0; i < 11; i++){
-        if (i<8){
-        drawPrices(0,i,itemPrice[i])
-      } else {
-        drawPrices(400,i-8,itemPrice[i])
-    }
-    }
-  } else if (oreBtPress == true && rBtPress == false) {
-      rBtPress = true
-      for (var i = 13; i < 21; i++){
-        if (i<8){
-        drawPrices(400,i,itemPrice[i])
-      } else {
-        drawPrices(800,i-8,itemPrice[i])
-    }
-    }
+    switch(listState){
+      case 1:
+      var oreCount = 0
+      for (var n = 13; n< 21; n++){
+        drawPrices(10,oreCount,itemPrice[n])
+        oreCount++
+      }
+
+    break;
+
   }
-  }
+}
 }
