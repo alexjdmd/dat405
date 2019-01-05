@@ -23,6 +23,7 @@ function jsonData(){
   var rBtPress = false
   var oreBtPress = false
   var listState = 0
+  var id = 0
 
 
   drawButtons();
@@ -94,11 +95,12 @@ function jsonData(){
   }
 
   function drawItems(x, y, id, name){
-    icon = createImg("http://services.runescape.com/m=itemdb_oldschool/1544450463596_obj_sprite.gif?id=" + id);
+    icon = createImg("http://services.runescape.com/m=itemdb_oldschool/1545055248360_obj_sprite.gif?id=" + id);
     icon.position(x,10+(y*50))
     fill(244,24,100);
-    textSize(20)
-    text(name,x+50,35+(y*50))
+    icon.mousePressed(iconClicked)
+    textSize(20);
+    text(name,x+50,35+(y*50));
     y++
   }
 
@@ -279,5 +281,9 @@ function jsonData(){
       }
         break;
     }
+  }
+
+  function iconClicked(){
+    text(id,100,100)
   }
 }
