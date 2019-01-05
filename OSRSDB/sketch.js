@@ -154,7 +154,7 @@ loadJSON(osbapi,getData);
   function pricePress(){
     if(priceStart == true){
       priceStart = false
-    } else {
+    } else if (quanPress == false ^ priceStart == true) {
       priceStart = true
       for (var x = 0; x < 18; x++){
       for (var g = 0; g < itemPrice[x]/2; g++){
@@ -171,7 +171,7 @@ loadJSON(osbapi,getData);
     function quanPress(){
       if(quanStart == true){
         quanStart = false
-      } else {
+      } else if (priceStart == false && quanStart == true) {
         quanStart = true
         for (var x = 0; x < 18; x++){
         for (var g = 0; g < itemQuantity[x]/10000; g++){
@@ -182,11 +182,11 @@ loadJSON(osbapi,getData);
     }
     }
       }
-
       }
 
   function oresPressed(){
     drawQuanPriceButtons();
+    console.log(listState)
     if (oreBtPress == false && rBtPress == false){
       oreBtPress = true
       var oreCount = 0
@@ -195,15 +195,15 @@ loadJSON(osbapi,getData);
         oreCount++
       }
     listState = 1
-    } else if (rBtPress == true && oreBtPress == false) {
+  } else if (listState == 3) {
       oreBtPress = true
       oreCount = 0
       for (var n = 11; n< 18; n++){
-        if (oreCount < 5) {
-        drawItems(400,oreCount+3,itemID[n],itemName[n])
+        if (oreCount < 3) {
+        drawItems(400,oreCount+4,itemID[n],itemName[n])
         oreCount++
       } else {
-        drawItems(800,oreCount-5,itemID[n],itemName[n])
+        drawItems(800,oreCount-3,itemID[n],itemName[n])
         oreCount++
       }
     }
@@ -212,14 +212,15 @@ loadJSON(osbapi,getData);
   }
 
   function runesPressed(){
+    console.log(listState)
     drawQuanPriceButtons();
     if (rBtPress == false && oreBtPress == false){
       rBtPress = true
       for (var i = 0; i < 11; i++){
-        if (i<8){
+        if (i<7){
         drawItems(0,i,itemID[i],itemName[i])
       } else {
-        drawItems(400,i-8,itemID[i],itemName[i])
+        drawItems(400,i-7,itemID[i],itemName[i])
     }
     }
     listState = 3
@@ -250,10 +251,10 @@ loadJSON(osbapi,getData);
       break;
       case 3:
       for (var i = 0; i < 11; i++){
-        if (i<8){
+        if (i<7){
         drawPrices(0,i,itemPrice[i])
       } else {
-        drawPrices(400,i-8,itemPrice[i])
+        drawPrices(400,i-7,itemPrice[i])
     }
     }
       break;
@@ -274,11 +275,11 @@ loadJSON(osbapi,getData);
       case 5:
       oreCount = 0
       for (var n = 11; n< 18; n++){
-        if (oreCount < 5) {
-        drawPrices(400,oreCount+3,itemPrice[n])
+        if (oreCount < 3) {
+        drawPrices(400,oreCount+4,itemPrice[n])
         oreCount++
       } else {
-        drawPrices(800,oreCount-5,itemPrice[n])
+        drawPrices(800,oreCount-3,itemPrice[n])
         oreCount++
       }
     }
@@ -294,6 +295,7 @@ loadJSON(osbapi,getData);
 }
 
   function quantityPressed(){
+    console.log(listState)
     if (listState == 2 && rBtPress == true){
       listState = 5
     }
@@ -331,19 +333,19 @@ loadJSON(osbapi,getData);
         case 5:
         oreCount = 0
         for (var n = 11; n< 18; n++){
-          if (oreCount < 5) {
-          drawQuantity(400,oreCount+3,itemQuantity[n])
+          if (oreCount < 3) {
+          drawQuantity(400,oreCount+4,itemQuantity[n])
           oreCount++
         } else {
-          drawQuantity(800,oreCount-5,itemQuantity[n])
+          drawQuantity(800,oreCount-3,itemQuantity[n])
           oreCount++
         }
       }
         for (var i = 0; i < 11; i++){
-          if (i<8){
+          if (i<7){
           drawQuantity(0,i,itemQuantity[i])
         } else {
-          drawQuantity(400,i-8,itemQuantity[i])
+          drawQuantity(400,i-7,itemQuantity[i])
       }
       }
         break;
