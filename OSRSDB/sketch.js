@@ -1,30 +1,37 @@
+
+
+// var url = 'https://spreadsheets.google.com/feeds/list/1FyM9xqawlVi5joBX230meyK6yyfsK9SC02Ocl579VLw/od6/public/values?alt=json';
+
+//var url = 'https://sheets.googleapis.com/v4/spreadsheets/1FyM9xqawlVi5joBX230meyK6yyfsK9SC02Ocl579VLw/values/Prices?key=' + apiKey;
+var osbapi = "https://storage.googleapis.com/osbuddy-exchange/summary.json"
+var animStart = false
 var icon;
 var itemName = [];
 var itemPrice = [];
 var itemQuantity =[];
 var itemID = [];
 var y = 0
-
-// var url = 'https://spreadsheets.google.com/feeds/list/1FyM9xqawlVi5joBX230meyK6yyfsK9SC02Ocl579VLw/od6/public/values?alt=json';
-
-//var url = 'https://sheets.googleapis.com/v4/spreadsheets/1FyM9xqawlVi5joBX230meyK6yyfsK9SC02Ocl579VLw/values/Prices?key=' + apiKey;
-var osbapi = "https://storage.googleapis.com/osbuddy-exchange/summary.json"
+var image = [];
 
 function setup(){
   createCanvas(1280,720);
+  frameRate(10)
   background(80);
-  jsonData();
-  noLoop();
+    item()
+  // noLoop();
 }
+var item = function(){
 
-function jsonData(){
+
   var listButtons;
+  var animButton;
   var resetButton;
   var rBtPress = false
   var oreBtPress = false
   var listState = 0
   var id = 0
 
+loadJSON(osbapi,getData);
 
   drawButtons();
 
@@ -38,6 +45,12 @@ function jsonData(){
     listButtons.position(10, 620)
     listButtons.size(100, 40)
     listButtons.mousePressed(drawListButtons)
+
+    animButton = createButton('Start Animation')
+    animButton.position(10, 570)
+    animButton.size(100,40)
+    animButton.mousePressed(animPress)
+
   }
 
   function drawListButtons(){
@@ -54,6 +67,10 @@ function jsonData(){
     oresButton.size(100,30)
     oresButton.mousePressed(oresPressed)
 
+    listButtons.hide()
+  }
+
+  function drawQuanPriceButtons(){
     var pricesButton = createButton('Prices')
     pricesButton.position(110,630)
     pricesButton.size(100,30)
@@ -63,11 +80,7 @@ function jsonData(){
     quantityButton.position(110,600)
     quantityButton.size(100,30)
     quantityButton.mousePressed(quantityPressed)
-
-    listButtons.hide()
   }
-
-  loadJSON(osbapi,getData);
 
   function getData(data){
 
@@ -98,7 +111,6 @@ function jsonData(){
     icon = createImg("http://services.runescape.com/m=itemdb_oldschool/1545055248360_obj_sprite.gif?id=" + id);
     icon.position(x,10+(y*50))
     fill(244,24,100);
-    icon.mousePressed(iconClicked)
     textSize(20);
     text(name,x+50,35+(y*50));
     y++
@@ -120,7 +132,17 @@ function jsonData(){
     listState = 0
   }
 
+  function animPress(){
+    if(animStart == false){
+      animStart = true
+    } else {
+      animStart = false
+    }
+
+    }
+
   function oresPressed(){
+    drawQuanPriceButtons();
     if (oreBtPress == false && rBtPress == false){
       oreBtPress = true
       var oreCount = 0
@@ -146,6 +168,7 @@ function jsonData(){
   }
 
   function runesPressed(){
+    drawQuanPriceButtons();
     if (rBtPress == false && oreBtPress == false){
       rBtPress = true
       for (var i = 0; i < 11; i++){
@@ -282,8 +305,29 @@ function jsonData(){
         break;
     }
   }
+}
 
-  function iconClicked(){
-    text(id,100,100)
-  }
+function draw(){
+  if(animStart == true){
+          animStart = false
+    for (var x = 0; x < 21; x++){
+      if (x == 11 || x == 12){
+        x = 13
+      }
+    image[x] = createImg("http://services.runescape.com/m=itemdb_oldschool/1545055248360_obj_big.gif?id=" + itemID[x])
+    image[x].position(x*75,400)
+    if(itemPrice[x] < 10){
+    image[x].size(itemPrice[x]*10,itemPrice[x]*10)
+} else if (itemPrice[x] > 1005) {
+  image[x].size(itemPrice[x]/50,itemPrice[x]/50)
+}
+image[x].mouseClicked(itemClicked)
+}
+}
+}
+
+function itemClicked(){
+  for (var x = 0; x<21;x++){
+        text(image[x].top , 100, 100)
+}
 }
