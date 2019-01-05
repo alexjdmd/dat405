@@ -11,7 +11,7 @@ var itemPrice = [];
 var itemQuantity =[];
 var itemID = [];
 var y = 0
-var image = [];
+var img = [];
 
 function setup(){
   createCanvas(1280,720);
@@ -84,21 +84,21 @@ loadJSON(osbapi,getData);
 
   function getData(data){
 
-    var rID = 554
-    var rCount = 0
-    do {
-      itemID[rCount] = rID
-      itemName[rCount] = data[itemID[rCount]].name;
-      itemPrice[rCount] = data[itemID[rCount]].buy_average;
-      itemQuantity[rCount] = data[itemID[rCount]].overall_quantity;
-      rID++
-      rCount++
-    } while (rID < 565);
+    // var rID = 554
+    // var rCount = 0
+    // do {
+    //   itemID[rCount] = rID
+    //   itemName[rCount] = data[itemID[rCount]].name;
+    //   itemPrice[rCount] = data[itemID[rCount]].buy_average;
+    //   itemQuantity[rCount] = data[itemID[rCount]].overall_quantity;
+    //   rID++
+    //   rCount++
+    // } while (rID < 565 && rCount < 11);
 
-    var oID = [449,436,444,440,447,451,442,438];
+    var oID = [554,555,556,557,558,559,560,561,562,563,564,449,436,444,440,447,442,438];
     var oCount = 0
-    for (var i = 13; i< 21;i++){
-      itemID[i] = oID[oCount];
+    for (var i = 0; i< 18;i++){
+      itemID[i] = oID[i];
       itemName[i] = data[itemID[i]].name;
       itemPrice[i] = data[itemID[i]].buy_average;
       itemQuantity[i] = data[itemID[i]].overall_quantity;
@@ -146,7 +146,7 @@ loadJSON(osbapi,getData);
     if (oreBtPress == false && rBtPress == false){
       oreBtPress = true
       var oreCount = 0
-      for (var n = 13; n< 21; n++){
+      for (var n = 11; n< 18; n++){
         drawItems(10,oreCount,itemID[n],itemName[n])
         oreCount++
       }
@@ -154,7 +154,7 @@ loadJSON(osbapi,getData);
     } else if (rBtPress == true && oreBtPress == false) {
       oreBtPress = true
       oreCount = 0
-      for (var n = 13; n< 21; n++){
+      for (var n = 11; n< 18; n++){
         if (oreCount < 5) {
         drawItems(400,oreCount+3,itemID[n],itemName[n])
         oreCount++
@@ -182,10 +182,10 @@ loadJSON(osbapi,getData);
   } else if (oreBtPress == true && rBtPress == false) {
       rBtPress = true
       for (var i = 0; i < 11; i++){
-        if (i<8){
+        if (i<7){
         drawItems(400,i,itemID[i],itemName[i])
       } else {
-        drawItems(800,i-8,itemID[i],itemName[i])
+        drawItems(800,i-7,itemID[i],itemName[i])
     }
     }
   listState = 4
@@ -199,7 +199,7 @@ loadJSON(osbapi,getData);
     switch(listState){
       case 1:
       var oreCount = 0
-      for (var n = 13; n< 21; n++){
+      for (var n = 11; n< 18; n++){
         drawPrices(10,oreCount,itemPrice[n])
         oreCount++
       }
@@ -222,14 +222,14 @@ loadJSON(osbapi,getData);
     }
     }
     var oreCount = 0
-    for (var n = 13; n< 21; n++){
+    for (var n = 11; n< 18; n++){
       drawPrices(10,oreCount,itemPrice[n])
       oreCount++
     }
       break;
       case 5:
       oreCount = 0
-      for (var n = 13; n< 21; n++){
+      for (var n = 11; n< 18; n++){
         if (oreCount < 5) {
         drawPrices(400,oreCount+3,itemPrice[n])
         oreCount++
@@ -256,7 +256,7 @@ loadJSON(osbapi,getData);
       switch(listState){
         case 1:
         var oreCount = 0
-        for (var n = 13; n< 21; n++){
+        for (var n = 11; n< 18; n++){
           drawQuantity(10,oreCount,itemQuantity[n])
           oreCount++
         }
@@ -279,7 +279,7 @@ loadJSON(osbapi,getData);
       }
       }
       var oreCount = 0
-      for (var n = 13; n< 21; n++){
+      for (var n = 11; n< 18; n++){
         drawQuantity(10,oreCount,itemQuantity[n])
         oreCount++
       }
@@ -310,24 +310,18 @@ loadJSON(osbapi,getData);
 function draw(){
   if(animStart == true){
           animStart = false
-    for (var x = 0; x < 21; x++){
-      if (x == 11 || x == 12){
-        x = 13
-      }
-    image[x] = createImg("http://services.runescape.com/m=itemdb_oldschool/1545055248360_obj_big.gif?id=" + itemID[x])
-    image[x].position(x*75,400)
-    if(itemPrice[x] < 10){
-    image[x].size(itemPrice[x]*10,itemPrice[x]*10)
-} else if (itemPrice[x] > 1005) {
-  image[x].size(itemPrice[x]/50,itemPrice[x]/50)
+    for (var x = 0; x < 18; x++){
+    for (var g = 0; g < itemPrice[x]/10; g++){
+    img[x] = createImg("http://services.runescape.com/m=itemdb_oldschool/1545055248360_obj_big.gif?id=" + itemID[x])
+    img[x].position(x*50,g)
 }
-image[x].mouseClicked(itemClicked)
+img[x].mouseClicked(itemClicked)
 }
 }
 }
 
 function itemClicked(){
-  for (var x = 0; x<21;x++){
-        text(image[x].top , 100, 100)
+  for (var g = 0; g<18;g++){
+        text(img[g].x , g*50, 100)
 }
 }
