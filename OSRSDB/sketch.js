@@ -4,12 +4,14 @@
 
 //var url = 'https://sheets.googleapis.com/v4/spreadsheets/1FyM9xqawlVi5joBX230meyK6yyfsK9SC02Ocl579VLw/values/Prices?key=' + apiKey;
 var osbapi = "https://storage.googleapis.com/osbuddy-exchange/summary.json"
-var animStart = false
+var priceStart = false
+var quanStart = false
 var icon;
 var itemName = [];
 var itemPrice = [];
 var itemQuantity =[];
 var itemID = [];
+var itemDesc = [];
 var y = 0
 var img = [];
 
@@ -30,6 +32,8 @@ var item = function(){
   var oreBtPress = false
   var listState = 0
   var id = 0
+  var quantityButton
+  var pricesButton
 
 loadJSON(osbapi,getData);
 
@@ -46,16 +50,29 @@ loadJSON(osbapi,getData);
     listButtons.size(100, 40)
     listButtons.mousePressed(drawListButtons)
 
-    animButton = createButton('Start Animation')
+    animButton = createButton('Visualise')
     animButton.position(10, 570)
     animButton.size(100,40)
-    animButton.mousePressed(animPress)
+    animButton.mousePressed(drawPQVisBtn)
 
+    pricesButton = createButton('Prices')
+    pricesButton.position(110,630)
+    pricesButton.size(100,30)
+    pricesButton.mousePressed(pricesPressed)
+
+    quantityButton = createButton('Quantity')
+    quantityButton.position(110,600)
+    quantityButton.size(100,30)
+    quantityButton.mousePressed(quantityPressed)
+
+    pricesButton.hide()
+    quantityButton.hide()
   }
 
   function drawListButtons(){
     rBtPress = false
     oreBtPress = false
+    animButton.hide()
 
     var runeButton = createButton('Runes')
     runeButton.position(10,630)
@@ -71,29 +88,29 @@ loadJSON(osbapi,getData);
   }
 
   function drawQuanPriceButtons(){
-    var pricesButton = createButton('Prices')
-    pricesButton.position(110,630)
-    pricesButton.size(100,30)
-    pricesButton.mousePressed(pricesPressed)
+  pricesButton.show()
+  quantityButton.show()
+  }
 
-    var quantityButton = createButton('Quantity')
-    quantityButton.position(110,600)
-    quantityButton.size(100,30)
-    quantityButton.mousePressed(quantityPressed)
+  function drawPQVisBtn(){
+
+    pricesButton.hide()
+    quantityButton.hide()
+    listButtons.hide()
+    animButton.hide()
+
+    var priceButton = createButton('Prices')
+    priceButton.position(10,630)
+    priceButton.size(100,30)
+    priceButton.mousePressed(pricePress)
+
+    var quanButton = createButton('Quantity')
+    quanButton.position(10,600)
+    quanButton.size(100,30)
+    quanButton.mousePressed(quanPress)
   }
 
   function getData(data){
-
-    // var rID = 554
-    // var rCount = 0
-    // do {
-    //   itemID[rCount] = rID
-    //   itemName[rCount] = data[itemID[rCount]].name;
-    //   itemPrice[rCount] = data[itemID[rCount]].buy_average;
-    //   itemQuantity[rCount] = data[itemID[rCount]].overall_quantity;
-    //   rID++
-    //   rCount++
-    // } while (rID < 565 && rCount < 11);
 
     var oID = [554,555,556,557,558,559,560,561,562,563,564,449,436,444,440,447,442,438];
     var oCount = 0
@@ -130,16 +147,43 @@ loadJSON(osbapi,getData);
     removeElements();
     drawButtons();
     listState = 0
+    quanStart = false
+    priceStart = false
   }
 
-  function animPress(){
-    if(animStart == false){
-      animStart = true
+  function pricePress(){
+    if(priceStart == true){
+      priceStart = false
     } else {
-      animStart = false
-    }
+      priceStart = true
+      for (var x = 0; x < 18; x++){
+      for (var g = 0; g < itemPrice[x]/2; g++){
+      img[x] = createImg("http://services.runescape.com/m=itemdb_oldschool/1545055248360_obj_big.gif?id=" + itemID[x])
+      img[x].mouseClicked(itemPriceClicked)
+      img[x].position(x*70,g*1.25)
+      img[x].size(80,80)
+  }
+  }
+}
 
     }
+
+    function quanPress(){
+      if(quanStart == true){
+        quanStart = false
+      } else {
+        quanStart = true
+        for (var x = 0; x < 18; x++){
+        for (var g = 0; g < itemQuantity[x]/10000; g++){
+        img[x] = createImg("http://services.runescape.com/m=itemdb_oldschool/1545055248360_obj_big.gif?id=" + itemID[x])
+        img[x].mouseClicked(itemQuanClicked)
+        img[x].position(x*70,g*1.25)
+        img[x].size(80,80)
+    }
+    }
+      }
+
+      }
 
   function oresPressed(){
     drawQuanPriceButtons();
@@ -215,10 +259,10 @@ loadJSON(osbapi,getData);
       break;
       case 4:
       for (var i = 0; i < 11; i++){
-        if (i<8){
+        if (i<7){
         drawPrices(400,i,itemPrice[i])
       } else {
-        drawPrices(800,i-8,itemPrice[i])
+        drawPrices(800,i-7,itemPrice[i])
     }
     }
     var oreCount = 0
@@ -239,10 +283,10 @@ loadJSON(osbapi,getData);
       }
     }
       for (var i = 0; i < 11; i++){
-        if (i<8){
+        if (i<7){
         drawPrices(0,i,itemPrice[i])
       } else {
-        drawPrices(400,i-8,itemPrice[i])
+        drawPrices(400,i-7,itemPrice[i])
     }
     }
       break;
@@ -263,19 +307,19 @@ loadJSON(osbapi,getData);
         break;
         case 3:
         for (var i = 0; i < 11; i++){
-          if (i<8){
+          if (i<7){
           drawQuantity(0,i,itemQuantity[i])
         } else {
-          drawQuantity(400,i-8,itemQuantity[i])
+          drawQuantity(400,i-7,itemQuantity[i])
       }
       }
         break;
         case 4:
         for (var i = 0; i < 11; i++){
-          if (i<8){
+          if (i<7){
           drawQuantity(400,i,itemQuantity[i])
         } else {
-          drawQuantity(800,i-8,itemQuantity[i])
+          drawQuantity(800,i-7,itemQuantity[i])
       }
       }
       var oreCount = 0
@@ -286,7 +330,7 @@ loadJSON(osbapi,getData);
         break;
         case 5:
         oreCount = 0
-        for (var n = 13; n< 21; n++){
+        for (var n = 11; n< 18; n++){
           if (oreCount < 5) {
           drawQuantity(400,oreCount+3,itemQuantity[n])
           oreCount++
@@ -308,20 +352,23 @@ loadJSON(osbapi,getData);
 }
 
 function draw(){
-  if(animStart == true){
-          animStart = false
-    for (var x = 0; x < 18; x++){
-    for (var g = 0; g < itemPrice[x]/10; g++){
-    img[x] = createImg("http://services.runescape.com/m=itemdb_oldschool/1545055248360_obj_big.gif?id=" + itemID[x])
-    img[x].position(x*50,g)
+
 }
-img[x].mouseClicked(itemClicked)
-}
+
+function itemPriceClicked(){
+  for (var g = 0; g<18;g++){
+var d = dist(mouseX, mouseY, img[g].x+ 20,img[g].y + 20)
+  if(d< 40){
+    alert(itemPrice[g] + " GP", 100, 100)
+  }
 }
 }
 
-function itemClicked(){
+function itemQuanClicked(){
   for (var g = 0; g<18;g++){
-        text(img[g].x , g*50, 100)
+var d = dist(mouseX, mouseY, img[g].x+ 20,img[g].y + 20)
+  if(d< 40){
+    alert(itemQuantity[g] + " Items", 100, 100)
+  }
 }
 }
