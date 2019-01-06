@@ -4,8 +4,6 @@
 
 //var url = 'https://sheets.googleapis.com/v4/spreadsheets/1FyM9xqawlVi5joBX230meyK6yyfsK9SC02Ocl579VLw/values/Prices?key=' + apiKey;
 var osbapi = "https://storage.googleapis.com/osbuddy-exchange/summary.json"
-var priceStart = false
-var quanStart = false
 var icon;
 var itemName = [];
 var itemPrice = [];
@@ -19,7 +17,7 @@ function setup(){
   createCanvas(1280,720);
   frameRate(10)
   background(80);
-    item()
+  item()
   // noLoop();
 }
 var item = function(){
@@ -34,8 +32,10 @@ var item = function(){
   var id = 0
   var quantityButton
   var pricesButton
+  var quanButton
+  var priceButton
 
-loadJSON(osbapi,getData);
+  loadJSON(osbapi,getData);
 
   drawButtons();
 
@@ -88,8 +88,8 @@ loadJSON(osbapi,getData);
   }
 
   function drawQuanPriceButtons(){
-  pricesButton.show()
-  quantityButton.show()
+    pricesButton.show()
+    quantityButton.show()
   }
 
   function drawPQVisBtn(){
@@ -99,12 +99,12 @@ loadJSON(osbapi,getData);
     listButtons.hide()
     animButton.hide()
 
-    var priceButton = createButton('Prices')
+    priceButton = createButton('Prices')
     priceButton.position(10,630)
     priceButton.size(100,30)
     priceButton.mousePressed(pricePress)
 
-    var quanButton = createButton('Quantity')
+    quanButton = createButton('Quantity')
     quanButton.position(10,600)
     quanButton.size(100,30)
     quanButton.mousePressed(quanPress)
@@ -147,46 +147,37 @@ loadJSON(osbapi,getData);
     removeElements();
     drawButtons();
     listState = 0
-    quanStart = false
-    priceStart = false
   }
 
   function pricePress(){
-    if(priceStart == true){
-      priceStart = false
-    } else if (quanPress == false ^ priceStart == true) {
-      priceStart = true
-      for (var x = 0; x < 18; x++){
+    quanButton.hide()
+    priceButton.hide()
+    for (var x = 0; x < 18; x++){
       for (var g = 0; g < itemPrice[x]/2; g++){
-      img[x] = createImg("http://services.runescape.com/m=itemdb_oldschool/1545055248360_obj_big.gif?id=" + itemID[x])
-      img[x].mouseClicked(itemPriceClicked)
-      img[x].position(x*70,g*1.25)
-      img[x].size(80,80)
-  }
-  }
-}
-
+        img[x] = createImg("http://services.runescape.com/m=itemdb_oldschool/1545055248360_obj_big.gif?id=" + itemID[x])
+        img[x].mouseClicked(itemPriceClicked)
+        img[x].position(x*70,g*1.25)
+        img[x].size(80,80)
+      }
     }
 
-    function quanPress(){
-      if(quanStart == true){
-        quanStart = false
-      } else if (priceStart == false && quanStart == true) {
-        quanStart = true
-        for (var x = 0; x < 18; x++){
-        for (var g = 0; g < itemQuantity[x]/10000; g++){
+  }
+
+  function quanPress(){
+    quanButton.hide()
+    priceButton.hide()
+    for (var x = 0; x < 18; x++){
+      for (var g = 0; g < itemQuantity[x]/10000; g++){
         img[x] = createImg("http://services.runescape.com/m=itemdb_oldschool/1545055248360_obj_big.gif?id=" + itemID[x])
         img[x].mouseClicked(itemQuanClicked)
         img[x].position(x*70,g*1.25)
         img[x].size(80,80)
-    }
-    }
       }
-      }
+    }
+  }
 
   function oresPressed(){
     drawQuanPriceButtons();
-    console.log(listState)
     if (oreBtPress == false && rBtPress == false){
       oreBtPress = true
       var oreCount = 0
@@ -194,53 +185,52 @@ loadJSON(osbapi,getData);
         drawItems(10,oreCount,itemID[n],itemName[n])
         oreCount++
       }
-    listState = 1
-  } else if (listState == 3) {
+      listState = 1
+    } else if (listState == 3) {
       oreBtPress = true
       oreCount = 0
       for (var n = 11; n< 18; n++){
         if (oreCount < 3) {
-        drawItems(400,oreCount+4,itemID[n],itemName[n])
-        oreCount++
-      } else {
-        drawItems(800,oreCount-3,itemID[n],itemName[n])
-        oreCount++
+          drawItems(400,oreCount+4,itemID[n],itemName[n])
+          oreCount++
+        } else {
+          drawItems(800,oreCount-3,itemID[n],itemName[n])
+          oreCount++
+        }
       }
-    }
-    listState = 2
+      listState = 2
     }
   }
 
   function runesPressed(){
-    console.log(listState)
     drawQuanPriceButtons();
     if (rBtPress == false && oreBtPress == false){
       rBtPress = true
       for (var i = 0; i < 11; i++){
         if (i<7){
-        drawItems(0,i,itemID[i],itemName[i])
-      } else {
-        drawItems(400,i-7,itemID[i],itemName[i])
-    }
-    }
-    listState = 3
-  } else if (oreBtPress == true && rBtPress == false) {
+          drawItems(0,i,itemID[i],itemName[i])
+        } else {
+          drawItems(400,i-7,itemID[i],itemName[i])
+        }
+      }
+      listState = 3
+    } else if (oreBtPress == true && rBtPress == false) {
       rBtPress = true
       for (var i = 0; i < 11; i++){
         if (i<7){
-        drawItems(400,i,itemID[i],itemName[i])
-      } else {
-        drawItems(800,i-7,itemID[i],itemName[i])
+          drawItems(400,i,itemID[i],itemName[i])
+        } else {
+          drawItems(800,i-7,itemID[i],itemName[i])
+        }
+      }
+      listState = 4
     }
-    }
-  listState = 4
-  }
   }
 
   function pricesPressed(){
-  if (listState == 2 && rBtPress == true){
-    listState = 5
-  }
+    if (listState == 2 && rBtPress == true){
+      listState = 5
+    }
     switch(listState){
       case 1:
       var oreCount = 0
@@ -252,88 +242,87 @@ loadJSON(osbapi,getData);
       case 3:
       for (var i = 0; i < 11; i++){
         if (i<7){
-        drawPrices(0,i,itemPrice[i])
-      } else {
-        drawPrices(400,i-7,itemPrice[i])
-    }
-    }
+          drawPrices(0,i,itemPrice[i])
+        } else {
+          drawPrices(400,i-7,itemPrice[i])
+        }
+      }
       break;
       case 4:
       for (var i = 0; i < 11; i++){
         if (i<7){
-        drawPrices(400,i,itemPrice[i])
-      } else {
-        drawPrices(800,i-7,itemPrice[i])
-    }
-    }
-    var oreCount = 0
-    for (var n = 11; n< 18; n++){
-      drawPrices(10,oreCount,itemPrice[n])
-      oreCount++
-    }
+          drawPrices(400,i,itemPrice[i])
+        } else {
+          drawPrices(800,i-7,itemPrice[i])
+        }
+      }
+      var oreCount = 0
+      for (var n = 11; n< 18; n++){
+        drawPrices(10,oreCount,itemPrice[n])
+        oreCount++
+      }
       break;
       case 5:
       oreCount = 0
       for (var n = 11; n< 18; n++){
         if (oreCount < 3) {
-        drawPrices(400,oreCount+4,itemPrice[n])
-        oreCount++
-      } else {
-        drawPrices(800,oreCount-3,itemPrice[n])
-        oreCount++
+          drawPrices(400,oreCount+4,itemPrice[n])
+          oreCount++
+        } else {
+          drawPrices(800,oreCount-3,itemPrice[n])
+          oreCount++
+        }
       }
-    }
       for (var i = 0; i < 11; i++){
         if (i<7){
-        drawPrices(0,i,itemPrice[i])
-      } else {
-        drawPrices(400,i-7,itemPrice[i])
-    }
-    }
+          drawPrices(0,i,itemPrice[i])
+        } else {
+          drawPrices(400,i-7,itemPrice[i])
+        }
+      }
       break;
+    }
   }
-}
 
   function quantityPressed(){
-    console.log(listState)
     if (listState == 2 && rBtPress == true){
       listState = 5
     }
-      switch(listState){
-        case 1:
-        var oreCount = 0
-        for (var n = 11; n< 18; n++){
-          drawQuantity(10,oreCount,itemQuantity[n])
-          oreCount++
-        }
-        break;
-        case 3:
-        for (var i = 0; i < 11; i++){
-          if (i<7){
+    switch(listState){
+      case 1:
+      var oreCount = 0
+      for (var n = 11; n< 18; n++){
+        drawQuantity(10,oreCount,itemQuantity[n])
+        oreCount++
+      }
+      break;
+      case 3:
+      for (var i = 0; i < 11; i++){
+        if (i<7){
           drawQuantity(0,i,itemQuantity[i])
         } else {
           drawQuantity(400,i-7,itemQuantity[i])
+        }
       }
-      }
-        break;
-        case 4:
-        for (var i = 0; i < 11; i++){
-          if (i<7){
+      break;
+      case 4:
+      for (var i = 0; i < 11; i++){
+        if (i<7){
           drawQuantity(400,i,itemQuantity[i])
         } else {
           drawQuantity(800,i-7,itemQuantity[i])
-      }
+        }
       }
       var oreCount = 0
       for (var n = 11; n< 18; n++){
         drawQuantity(10,oreCount,itemQuantity[n])
         oreCount++
       }
-        break;
-        case 5:
-        oreCount = 0
-        for (var n = 11; n< 18; n++){
-          if (oreCount < 3) {
+      break;
+      case 5:
+      oreCount = 0
+      for (var n = 11; n< 18; n++){
+        if (oreCount < 3) {
           drawQuantity(400,oreCount+4,itemQuantity[n])
           oreCount++
         } else {
@@ -341,14 +330,14 @@ loadJSON(osbapi,getData);
           oreCount++
         }
       }
-        for (var i = 0; i < 11; i++){
-          if (i<7){
+      for (var i = 0; i < 11; i++){
+        if (i<7){
           drawQuantity(0,i,itemQuantity[i])
         } else {
           drawQuantity(400,i-7,itemQuantity[i])
+        }
       }
-      }
-        break;
+      break;
     }
   }
 }
@@ -359,18 +348,18 @@ function draw(){
 
 function itemPriceClicked(){
   for (var g = 0; g<18;g++){
-var d = dist(mouseX, mouseY, img[g].x+ 20,img[g].y + 20)
-  if(d< 40){
-    alert(itemPrice[g] + " GP", 100, 100)
+    var d = dist(mouseX, mouseY, img[g].x+ 20,img[g].y + 20)
+    if(d< 40){
+      alert(itemPrice[g] + " GP", 100, 100)
+    }
   }
-}
 }
 
 function itemQuanClicked(){
   for (var g = 0; g<18;g++){
-var d = dist(mouseX, mouseY, img[g].x+ 20,img[g].y + 20)
-  if(d< 40){
-    alert(itemQuantity[g] + " Items", 100, 100)
+    var d = dist(mouseX, mouseY, img[g].x+ 20,img[g].y + 20)
+    if(d< 40){
+      alert(itemQuantity[g] + " Items", 100, 100)
+    }
   }
-}
 }
