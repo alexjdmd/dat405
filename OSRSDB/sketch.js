@@ -26,6 +26,7 @@ var item = function(){
   var listButtons;
   var animButton;
   var resetButton;
+  var visButton;
   var rBtPress = false
   var oreBtPress = false
   var listState = 0
@@ -50,10 +51,15 @@ var item = function(){
     listButtons.size(100, 40)
     listButtons.mousePressed(drawListButtons)
 
-    animButton = createButton('Visualise')
+    animButton = createButton('Graphs')
     animButton.position(10, 570)
     animButton.size(100,40)
     animButton.mousePressed(drawPQVisBtn)
+
+    visButton = createButton('Visualise');
+    visButton.position(10, 520);
+    visButton.size(100,40)
+    visButton.mousePressed(visualise)
 
     pricesButton = createButton('Prices')
     pricesButton.position(110,630)
@@ -65,6 +71,8 @@ var item = function(){
     quantityButton.size(100,30)
     quantityButton.mousePressed(quantityPressed)
 
+
+
     pricesButton.hide()
     quantityButton.hide()
   }
@@ -73,6 +81,7 @@ var item = function(){
     rBtPress = false
     oreBtPress = false
     animButton.hide()
+    visButton.hide()
 
     var runeButton = createButton('Runes')
     runeButton.position(10,630)
@@ -98,6 +107,7 @@ var item = function(){
     quantityButton.hide()
     listButtons.hide()
     animButton.hide()
+    visButton.hide()
 
     priceButton = createButton('Prices')
     priceButton.position(10,630)
@@ -149,9 +159,36 @@ var item = function(){
     listState = 0
   }
 
+  function visualise(){
+    var imageSize = 0
+    for (var x = 0; x < 18; x++){
+        imageSize = itemPrice[x]
+        if (imageSize < 10){
+          imageSize = imageSize * 10
+        } else if (imageSize > 200) {
+          imageSize = imageSize / 5
+        }
+        img[x] = createImg("http://services.runescape.com/m=itemdb_oldschool/1545055248360_obj_big.gif?id=" + itemID[x])
+        img[x].mouseClicked(itemPriceClicked)
+        img[x].position(random(900),random(520))
+        img[x].size(imageSize, imageSize)
+        for (var n = 0; n> 18; n++){
+          img[n].x = img[n].x + random(200)
+          img[n].y = img[n].y + random(imageSize)
+    }
+  }
+
+    listButtons.hide()
+    animButton.hide()
+    visButton.hide()
+  }
+
   function pricePress(){
     quanButton.hide()
     priceButton.hide()
+    visButton.hide()
+    textSize(20)
+    text("You can click on an icon in order to view its name and price.", 250, 700)
     for (var x = 0; x < 18; x++){
       for (var g = 0; g < itemPrice[x]/2; g++){
         img[x] = createImg("http://services.runescape.com/m=itemdb_oldschool/1545055248360_obj_big.gif?id=" + itemID[x])
@@ -166,6 +203,9 @@ var item = function(){
   function quanPress(){
     quanButton.hide()
     priceButton.hide()
+    visButton.hide()
+    textSize(20)
+    text("You can click on an icon in order to view its name and quantity.", 250, 700)
     for (var x = 0; x < 18; x++){
       for (var g = 0; g < itemQuantity[x]/10000; g++){
         img[x] = createImg("http://services.runescape.com/m=itemdb_oldschool/1545055248360_obj_big.gif?id=" + itemID[x])
@@ -342,15 +382,13 @@ var item = function(){
   }
 }
 
-function draw(){
 
-}
 
 function itemPriceClicked(){
   for (var g = 0; g<18;g++){
     var d = dist(mouseX, mouseY, img[g].x+ 20,img[g].y + 20)
     if(d< 40){
-      alert(itemPrice[g] + " GP", 100, 100)
+      alert(itemName[g] + " : " + itemPrice[g] + " GP", 100, 100)
     }
   }
 }
@@ -359,7 +397,7 @@ function itemQuanClicked(){
   for (var g = 0; g<18;g++){
     var d = dist(mouseX, mouseY, img[g].x+ 20,img[g].y + 20)
     if(d< 40){
-      alert(itemQuantity[g] + " Items", 100, 100)
+      alert(itemName[g] + " : " + itemQuantity[g] + " Items", 100, 100)
     }
   }
 }
