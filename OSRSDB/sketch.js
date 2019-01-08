@@ -12,6 +12,7 @@ var itemID = [];
 var itemDesc = [];
 var y = 0
 var img = [];
+var runeName = [];
 
 function setup(){
   createCanvas(1280,720);
@@ -35,6 +36,25 @@ var item = function(){
   var pricesButton
   var quanButton
   var priceButton
+
+  runeName[0] = "https://vignette.wikia.nocookie.net/2007scape/images/5/5d/Fire_rune_detail.png/revision/latest"
+  runeName[1] = "https://vignette.wikia.nocookie.net/2007scape/images/7/74/Water_rune_detail.png/revision/latest"
+  runeName[2] = "https://vignette.wikia.nocookie.net/2007scape/images/f/f3/Air_rune_detail.png/revision/latest"
+  runeName[3] = "https://vignette.wikia.nocookie.net/2007scape/images/7/72/Earth_rune_detail.png/revision/latest"
+  runeName[4] = "https://vignette.wikia.nocookie.net/2007scape/images/5/55/Mind_rune_detail.png/revision/latest"
+  runeName[5] = "https://vignette.wikia.nocookie.net/2007scape/images/b/bd/Body_rune_detail.png/revision/latest"
+  runeName[6] = "https://vignette.wikia.nocookie.net/2007scape/images/7/7d/Death_rune_detail.png/revision/latest"
+  runeName[7] = "https://vignette.wikia.nocookie.net/2007scape/images/e/ef/Nature_rune_detail.png/revision/latest"
+  runeName[8] = "https://vignette.wikia.nocookie.net/2007scape/images/a/ae/Chaos_rune_detail.png/revision/latest"
+  runeName[9] = "https://vignette.wikia.nocookie.net/2007scape/images/0/0f/Law_rune_detail.png/revision/latest"
+  runeName[10] = "https://vignette.wikia.nocookie.net/2007scape/images/d/dc/Cosmic_rune_detail.png/revision/latest"
+  runeName[11] = "https://vignette.wikia.nocookie.net/2007scape/images/3/35/Adamantite_ore_detail.png/revision/latest"
+  runeName[12] = "https://vignette.wikia.nocookie.net/2007scape/images/f/f2/Copper_ore_detail.png/revision/latest"
+  runeName[13] = "https://vignette.wikia.nocookie.net/2007scape/images/c/c8/Gold_ore_detail.png/revision/latest"
+  runeName[14] = "https://vignette.wikia.nocookie.net/2007scape/images/6/6a/Iron_ore_detail.png/revision/latest"
+  runeName[15] = "https://vignette.wikia.nocookie.net/2007scape/images/b/ba/Mithril_ore_detail.png/revision/latest"
+  runeName[16] = "https://vignette.wikia.nocookie.net/2007scape/images/4/4e/Silver_ore_detail.png/revision/latest"
+  runeName[17] = "https://vignette.wikia.nocookie.net/2007scape/images/b/b3/Tin_ore_detail.png/revision/latest"
 
   loadJSON(osbapi,getData);
 
@@ -164,18 +184,14 @@ var item = function(){
     for (var x = 0; x < 18; x++){
         imageSize = itemPrice[x]
         if (imageSize < 10){
-          imageSize = imageSize * 10
+          imageSize = imageSize * 15
         } else if (imageSize > 200) {
-          imageSize = imageSize / 5
+          imageSize = imageSize / 3
         }
-        img[x] = createImg("http://services.runescape.com/m=itemdb_oldschool/1545055248360_obj_big.gif?id=" + itemID[x])
+        img[x] = createImg(runeName[x])
         img[x].mouseClicked(itemPriceClicked)
-        img[x].position(random(900),random(520))
         img[x].size(imageSize, imageSize)
-        for (var n = 0; n> 18; n++){
-          img[n].x = img[n].x + random(200)
-          img[n].y = img[n].y + random(imageSize)
-    }
+        img[x].position(random(1280) -random(imageSize*1.25),random(620) - random(imageSize*1.25))
   }
 
     listButtons.hide()
